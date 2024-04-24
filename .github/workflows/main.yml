@@ -19,7 +19,7 @@ jobs:
         export-secrets-to-outputs: true
         export-secrets-to-environment: true
         static-secrets: |
-          - name: "<Insert/secret/full/name>"
+          - name: "MyFirstSecret"
             output-name: "my_first_secret"
         api-url: "https://cmmel.mymfademo.com/akeyless-api/v2/"
    
