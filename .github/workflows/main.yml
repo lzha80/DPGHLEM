@@ -22,16 +22,10 @@ jobs:
           api-url: 'https://cmmel.mymfademo.com/akeyless-api/v2/'
       - name: Export Secrets to Environment
         run: |
-          echo '${{ steps.fetch-dynamic-secrets.outputs.postgres_dynamic_secret
-          }}' | jq -r
-          'to_entries|map("(.key|ascii_upcase)=\(.value|tostring)")|.[]'
-          >> $GITHUB_ENV
+           echo '${{ steps.fetch-dynamic-secrets.outputs.MY_SECRET }}' | jq -r 'to_entries|map("JWT_\(.key)=\(.value|tostring)")|.[]' >> $GITHUB_ENV
       - name: Verify Vars
         run: |
-          echo "host: ${{ env.POSTGRES_HOST }}" >> secrets.txt
-          echo "port: ${{ env.POSTGRES_PORT }}" >> secrets.txt
-          echo "username: ${{ env.POSTGRES_USER }}" >> secrets.txt
-          echo "password: ${{ env.POSTGRES_PASSWORD }}" >> secrets.txt
-          echo "db_name: ${{ env.POSTGRES_DB_NAME }}" >> secrets.txt
-          echo "ttl_in_minutes: ${{ env.POSTGRES_TTL_IN_MINUTES }}" >>
-          secrets.txt           
+          echo "access_key_id: ${{ env.JWT_access_key_id }}"
+          echo "id: ${{ env.JWT_id }}"
+          echo "secret_access_key: ${{ env.JWT_secret_access_key }}"
+          echo "type: ${{ env.JWT_type }}"         
